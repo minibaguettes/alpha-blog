@@ -25,7 +25,7 @@ class ArticlesController < ApplicationController
       flash[:notice] = "Article was created successfully."
       redirect_to @article
     else
-      render 'new'
+      render 'new', status: :unprocessable_entity
     end
     #redirect_to article_path(@article)
     # extracts id from @article and uses to form path
