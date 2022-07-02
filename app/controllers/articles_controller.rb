@@ -1,6 +1,9 @@
 class ArticlesController < ApplicationController
+  # performs this action/method before doing anything else only for the included methods
+  before_action :set_article, only: [:show, :edit, :update, :destroy]
+
   def show
-    @article = Article.find(params[:id])
+    #@article = Article.find(params[:id])
   end
 
   def index
@@ -12,11 +15,12 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    @article = Article.find(params[:id])
+    #@article = Article.find(params[:id])
   end
 
   def create
-    @article = Article.new(params.require(:article).permit(:title, :description))
+    #@article = Article.new(params.require(:article).permit(:title, :description))
+    @article = Article.new(article_params)
     # require top lvl key or article and permit title and description to be used to create article object
     # render plain: @article.inspect
     # render plain: @article will display the article object
@@ -34,9 +38,10 @@ class ArticlesController < ApplicationController
 
   def update
     # find article to edit
-    @article = Article.find(params[:id])
+    #@article = Article.find(params[:id])
     # update with latest title and description (whitelist it, make title and description available to use)
-    if @article.update(params.require(:article).permit(:title, :description))
+    #if @article.update(params.require(:article).permit(:title, :description))
+    if @article.update(article_params)
       flash[:notice] = "Article was updated successfully."
       redirect_to @article
     else
@@ -47,10 +52,22 @@ class ArticlesController < ApplicationController
 
   def destroy
     # find article
-    @article = Article.find(params[:id])
+    #@article = Article.find(params[:id])
     # destroy article
     @article.destroy
     # redirect to list of articles
     redirect_to articles_path
   end
+
+  # not a code block; applies to anything below it, no need for end line
+  private 
+
+  def set_article
+    @article = Article.find(params[:id])
+  end
+
+  def article_params
+    params.require(:article).permit(:title, :description)
+  end
+
 end
