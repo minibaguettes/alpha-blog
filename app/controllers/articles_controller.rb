@@ -21,6 +21,7 @@ class ArticlesController < ApplicationController
   def create
     #@article = Article.new(params.require(:article).permit(:title, :description))
     @article = Article.new(article_params)
+    @article.user = User.first  # temporary
     # require top lvl key or article and permit title and description to be used to create article object
     # render plain: @article.inspect
     # render plain: @article will display the article object
