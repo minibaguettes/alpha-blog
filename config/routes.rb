@@ -6,4 +6,8 @@ Rails.application.routes.draw do
   resources :articles 
   # exposed all REST-ful routes for article resources
   # REST = representational state transfer - mapping HTTP verbs (get, post, put/patch, delete) to CRUD actions; front end mapped to back end
+  get 'signup', to: 'users#new'
+  #post 'users', to: 'users#create'
+  resources :users, except: [:new]
+  # get all route / users, except for new route for users
 end
