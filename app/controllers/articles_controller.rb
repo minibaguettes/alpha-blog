@@ -16,6 +16,7 @@ class ArticlesController < ApplicationController
 
   def edit
     #@article = Article.find(params[:id])
+    
   end
 
   def create
@@ -47,7 +48,7 @@ class ArticlesController < ApplicationController
       redirect_to @article
     else
       # validation errors, must correct, so return to the edit page  
-      render 'edit'
+      render 'edit', status: :unprocessable_entity
     end
   end
 
