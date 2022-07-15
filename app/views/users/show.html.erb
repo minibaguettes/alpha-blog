@@ -1,0 +1,8 @@
+<h1><%= @user.username %>'s profile</h1>
+
+<%= gravatar_for @user, size: 200 %>
+<!-- if omit size, then will take default size found in app/helpers/application_helper.rb -->
+
+<h3>Articles</h3>
+
+<%= render 'articles/article' %>
