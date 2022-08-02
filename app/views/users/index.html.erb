@@ -1,0 +1,22 @@
+<h1>Alpha Bloggers</h1>
+
+<%= will_paginate @articles %>
+
+<%= link_to "Return to home page", root_path %>
+<br><br>
+
+<% @users.each do |user| %>
+  <div>
+    <td><%= link_to user.username, user %></td> 
+      <!-- can replace this -> user_path(user) with user since it is so common -->
+    <%= link_to gravatar_for(user, size: 150), user %>
+    <%= pluralize(user.articles.count, "article") %>  
+      <!-- if user has 1 article, will say 1 article; if more, then articles -->
+    <%= link_to "View profile", user %>
+    <%= link_to "Edit profile", edit_user_path(user) %>
+  </div>
+  <div>
+    <small>Joined <%= time_ago_in_words(user.created_at) %> ago</small>
+  </div>
+  <br>
+<% end %>
