@@ -1,6 +1,10 @@
 class ArticlesController < ApplicationController
   # performs this action/method before doing anything else only for the included methods
   before_action :set_article, only: [:show, :edit, :update, :destroy]
+  # specify actions that won't need method; all other actions require this
+  before_action :require_user, except: [:show, :index] 
+  # make sure user is logged in (above line) before checking to see if the user is the article author
+  before_action :require_same_user, only: [:edit, :update, :destroy]
 
   def show
     #@article = Article.find(params[:id])
@@ -71,6 +75,13 @@ class ArticlesController < ApplicationController
 
   def article_params
     params.require(:article).permit(:title, :description)
+  end
+
+  def require_same_user
+    if current_user != @article.user
+      flash[:alert] = "You can only edit or delete your own articles"
+      redirect_to @article
+    end
   end
 
 end

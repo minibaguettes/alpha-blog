@@ -4,6 +4,8 @@
 <%= render 'article' %>
 
 <p>
-	<%=link_to 'Create new article', new_article_path %> |
+	<% if logged_in? %>
+		<%=link_to 'Create new article', new_article_path %> 
+	<% end %>|
 	<%= link_to "Return to home page", root_path %>
 </p>
