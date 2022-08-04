@@ -8,12 +8,14 @@
 <% @users.each do |user| %>
   <div>
     <td><%= link_to user.username, user %></td> 
-      <!-- can replace this -> user_path(user) with user since it is so common -->
+          <!-- can replace this -> user_path(user) with user since it is so common -->
     <%= link_to gravatar_for(user, size: 150), user %>
     <%= pluralize(user.articles.count, "article") %>  
-      <!-- if user has 1 article, will say 1 article; if more, then articles -->
+          <!-- if user has 1 article, will say 1 article; if more, then articles -->
     <%= link_to "View profile", user %>
-    <%= link_to "Edit profile", edit_user_path(user) %>
+    <% if logged_in? && user == current_user %>
+      <%= link_to "Edit profile", edit_user_path(user) %>
+    <% end %>
   </div>
   <div>
     <small>Joined <%= time_ago_in_words(user.created_at) %> ago</small>

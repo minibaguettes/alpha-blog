@@ -3,7 +3,9 @@
 <%= gravatar_for @user, size: 200 %>
 <!-- if omit size, then will take default size found in app/helpers/application_helper.rb -->
 
-<%= link_to "Edit your profile", edit_user_path(@user) %>
+<% if logged_in? && @user == current_user %>
+  <%= link_to "Edit your profile", edit_user_path(@user) %>
+<% end %>
 
 <h3>Articles</h3>
 
