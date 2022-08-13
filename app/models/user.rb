@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   before_save { self.email = email.downcase } # self references each object of user class
-  has_many :articles  # user can have many articles
+  has_many :articles, dependent: :destroy  # user can have many articles
   # ensures username/email is present before user object is saved to database
   # uniqueness: true => checks for case sensitivity by default, but don't want that, so specify case
   validates :username, presence: true, uniqueness: { case_sensitive: false }, length: { minimum: 3, maximum: 25 } 

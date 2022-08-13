@@ -13,8 +13,14 @@
     <%= pluralize(user.articles.count, "article") %>  
           <!-- if user has 1 article, will say 1 article; if more, then articles -->
     <%= link_to "View profile", user %>
-    <% if logged_in? && user == current_user %>
-      <%= link_to "Edit profile", edit_user_path(user) %>
+    <% if logged_in? %>
+      <% if user == current_user %>
+        <%= link_to "Edit profile", edit_user_path(user) %>
+      <% end %>
+      <% if current_user.admin? %>
+        <%= link_to "Delete user", user_path(user), method: :delete, 
+          data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this user and all associated articles?" } %>
+      <% end %>
     <% end %>
   </div>
   <div>

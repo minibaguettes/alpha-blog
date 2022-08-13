@@ -1,9 +1,11 @@
 <h1>This is the home page for alpha-blog</h1>
 
-<%= link_to "Sign up!", signup_path %> |
-
 <% if logged_in? %>
-  <%= link_to current_user.username, user_path(current_user) %>
+  <% if current_user.admin? %>
+    <%= link_to "(Admin) " +  current_user.username, user_path(current_user) %>
+  <% else %>
+    <%= link_to current_user.username, user_path(current_user) %>
+  <% end %>
   <%= link_to "Logout", logout_path, method: :delete %>
 <% else %>
 	<%= link_to "Log in", login_path %>

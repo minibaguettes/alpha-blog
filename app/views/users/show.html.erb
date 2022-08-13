@@ -4,7 +4,9 @@
 <!-- if omit size, then will take default size found in app/helpers/application_helper.rb -->
 
 <% if logged_in? && @user == current_user %>
-  <%= link_to "Edit your profile", edit_user_path(@user) %>
+  <%= link_to "Edit your profile", edit_user_path(@user) %> |
+  <!-- config/routes.rb, contains resources :users, which gives all user actions --> 
+  <%= link_to "Delete your profile", user_path(current_user), method: :delete, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
 <% end %>
 
 <h3>Articles</h3>
